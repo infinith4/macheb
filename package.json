@@ -1,0 +1,23 @@
+{
+  "name": "macheb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.16.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/infinith4/macheb.git"
+  },
+  "author": "infinith4",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/infinith4/macheb/issues"
+  },
+  "homepage": "https://github.com/infinith4/macheb#readme"
+}
