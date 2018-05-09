@@ -3,5 +3,6 @@ extends layout
 block content
   h1= title
   form(method="post", enctype="multipart/form-data", action="/textiletomarkdown")
+    textarea=markdown
     input(type="file", name="textile")
     input(type="submit")

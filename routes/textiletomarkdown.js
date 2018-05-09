@@ -11,9 +11,9 @@ var path = require("path");
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  console.log(global.appRoot)
+  console.log(global.appRoot);
   console.log("__dirname = %s", path.resolve(__dirname));
-  res.render('textiletomarkdown', { title: 'textiletomarkdown' });
+  res.render('textiletomarkdown', { title: 'textiletomarkdown', markdown: '' });
 });
 
 router.post('/', function(req, res, next) {
@@ -27,8 +27,10 @@ router.post('/', function(req, res, next) {
         if (err) { console.log(err); }
         console.log(stdout);
         var output_filepath = global.appRoot + '/textiletomarkdown_conv/' + req.file.filename + '_conv.txt'
-        var data = fs.readFileSync(output_filepath, 'utf-8');
-        res.send("uploaded " + req.file.originalname + " as " + req.file.filename + " Size: " + req.file.size + "\ndata:\n" + data);
+        var markdowndata = fs.readFileSync(output_filepath, 'utf-8')
+        console.log(markdowndata)
+        //res.send("uploaded " + req.file.originalname + " as " + req.file.filename + " Size: " + req.file.size + "<br />data:<br />" + data);
+        res.render('textiletomarkdown', {title: 'textiletomarkdown', markdown : markdowndata});
       });
     }
   });
