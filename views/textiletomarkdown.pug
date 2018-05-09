@@ -1,8 +1,25 @@
 extends layout
 
+
 block content
+  <script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+  <script src="/js/marked.js"></script>
+  script(type='text/javascript').
+    $(document).ready(function(){
+        $("#markdownbtn").click(function(){
+          console.log($("textarea").text());
+          console.log(marked($("textarea").text()));
+          $("#markdowncontent").after(marked($("textarea").text()));
+        });
+    });
   h1= title
   form(method="post", enctype="multipart/form-data", action="/textiletomarkdown")
-    textarea=markdown
     input(type="file", name="textile")
     input(type="submit")
+    <br />
+    <br />
+    textarea(rows="20" cols="100" name="mdTextArea")=markdown
+
+    <a href="https://github.com/markedjs/marked">marked</a>
+    input(id="markdownbtn" type="button" value="markdown")
+    p(id="markdowncontent")
