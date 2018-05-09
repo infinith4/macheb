@@ -44,4 +44,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+var path = require('path');
+global.appRoot = path.resolve(__dirname);
+
 module.exports = app;

@@ -7,9 +7,12 @@ var fs = require('fs');
 var upload = multer({ dest: './uploads/' }).single('textile');
 
 const exec = require('child_process').exec;
+var path = require("path");
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
+  console.log(global.appRoot)
+  console.log("__dirname = %s", path.resolve(__dirname));
   res.render('textiletomarkdown', { title: 'textiletomarkdown' });
 });
 
@@ -18,14 +21,14 @@ router.post('/', function(req, res, next) {
     if(err) {
       res.send("Failed to write " + req.file.destination + " with " + err);
     } else {
-      execcmd = 'ruby ~/gitrepo/github/textiletomarkdown/textiletomarkdown.rb ~/gitrepo/github/macheb/uploads/' + req.file.filename + " ~/gitrepo/github/macheb/textiletomarkdown_conv"
+      execcmd = 'ruby ' + global.appRoot + '/utils/textiletomarkdown.rb ' + global.appRoot + '/uploads/' + req.file.filename + ' ' + global.appRoot + '/textiletomarkdown_conv'
       console.log(execcmd)
       exec(execcmd, (err, stdout, stderr) => {
         if (err) { console.log(err); }
         console.log(stdout);
-        var output_filepath = '/home/ubatm/gitrepo/github/macheb/textiletomarkdown_conv/' + req.file.filename + '_conv.txt'
+        var output_filepath = global.appRoot + '/textiletomarkdown_conv/' + req.file.filename + '_conv.txt'
         var data = fs.readFileSync(output_filepath, 'utf-8');
-        res.send("uploaded " + req.file.originalname + " as " + req.file.filename + " Size: " + req.file.size + "data:" + data);
+        res.send("uploaded " + req.file.originalname + " as " + req.file.filename + " Size: " + req.file.size + "\ndata:\n" + data);
       });
     }
   });
