@@ -1,5 +1,8 @@
 *.*~
 # Logs
+uploads
+textiletomarkdown_conv
+
 logs
 *.log
 npm-debug.log*
