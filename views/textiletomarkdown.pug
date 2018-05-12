@@ -7,19 +7,25 @@ block content
   script(type='text/javascript').
     $(document).ready(function(){
         $("#markdownbtn").click(function(){
-          console.log($("textarea").text());
-          console.log(marked($("textarea").text()));
-          $("#markdowncontent").after(marked($("textarea").text()));
+          //console.log($("#mdTextArea").val());
+          //console.log(marked($("#mdTextArea").val()));
+          $("#markdowncontent").html(marked($("#mdTextArea").val()));
         });
+        if(!($("#mdTextArea").text() === "")){
+          $("#markdownbtn").click();
+        }
     });
   h1= title
   form(method="post", action="/textiletomarkdown")
-    textarea(rows="20" cols="100" name="textileTextArea")=textile
-    input(type="submit")
+    textarea(rows="20" cols="50" name="textileTextArea")=textileText
+    input(type="submit", value="Convert")
     <br />
     <br />
-    textarea(rows="20" cols="100" name="mdTextArea" id="mdTextArea")=markdown
-
-    <a href="https://github.com/markedjs/marked">marked</a>
-    input(id="markdownbtn" type="button" value="markdown")
-    p(id="markdowncontent")
+    textarea(rows="20" cols="50" name="mdTextArea" id="mdTextArea")=markdown
+    input(id="markdownbtn" type="button" value="Preview markdown")
+    h4 Reference
+    a(href="https://github.com/markedjs/marked") marked
+    br
+    a(href="https://gist.github.com/yuumi3/d54ce99d1f15077ebaf8") Convert Textile to Markdown contents in Redmin · GitHub
+    h2 Preview Markdown
+    div(id="markdowncontent" style="background-color: #ffffe0")
