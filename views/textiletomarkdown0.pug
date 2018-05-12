@@ -13,12 +13,12 @@ block content
         });
     });
   h1= title
-  form(method="post", action="/textiletomarkdown")
-    textarea(rows="20" cols="100" name="textileTextArea")=textile
+  form(method="post", enctype="multipart/form-data", action="/textiletomarkdown")
+    input(type="file", name="textile")
     input(type="submit")
     <br />
     <br />
-    textarea(rows="20" cols="100" name="mdTextArea" id="mdTextArea")=markdown
+    textarea(rows="20" cols="100" name="mdTextArea")=markdown
 
     <a href="https://github.com/markedjs/marked">marked</a>
     input(id="markdownbtn" type="button" value="markdown")

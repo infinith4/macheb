@@ -17,23 +17,27 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-  upload(req, res, function(err) {
-    if(err) {
-      res.send("Failed to write " + req.file.destination + " with " + err);
-    } else {
-      execcmd = 'ruby ' + global.appRoot + '/utils/textiletomarkdown.rb ' + global.appRoot + '/uploads/' + req.file.filename + ' ' + global.appRoot + '/textiletomarkdown_conv'
-      console.log(execcmd)
-      exec(execcmd, (err, stdout, stderr) => {
-        if (err) { console.log(err); }
-        console.log(stdout);
-        var output_filepath = global.appRoot + '/textiletomarkdown_conv/' + req.file.filename + '_conv.txt'
-        var markdowndata = fs.readFileSync(output_filepath, 'utf-8')
-        console.log(markdowndata)
-        //res.send("uploaded " + req.file.originalname + " as " + req.file.filename + " Size: " + req.file.size + "<br />data:<br />" + data);
-        res.render('textiletomarkdown', {title: 'textiletomarkdown', markdown : markdowndata});
-      });
-    }
-  });
+  console.log(req.body.textileTextArea);
 });
+
+// router.post('/', function(req, res, next) {
+//   upload(req, res, function(err) {
+//     if(err) {
+//       res.send("Failed to write " + req.file.destination + " with " + err);
+//     } else {
+//       execcmd = 'ruby ' + global.appRoot + '/utils/textiletomarkdown.rb ' + global.appRoot + '/uploads/' + req.file.filename + ' ' + global.appRoot + '/textiletomarkdown_conv'
+//       console.log(execcmd)
+//       exec(execcmd, (err, stdout, stderr) => {
+//         if (err) { console.log(err); }
+//         console.log(stdout);
+//         var output_filepath = global.appRoot + '/textiletomarkdown_conv/' + req.file.filename + '_conv.txt'
+//         var markdowndata = fs.readFileSync(output_filepath, 'utf-8')
+//         console.log(markdowndata)
+//         //res.send("uploaded " + req.file.originalname + " as " + req.file.filename + " Size: " + req.file.size + "<br />data:<br />" + data);
+//         res.render('textiletomarkdown', {title: 'textiletomarkdown', markdown : markdowndata});
+//       });
+//     }
+//   });
+// });
 
 module.exports = router;
